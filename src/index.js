@@ -23,12 +23,14 @@ const install = function (Vue, { breakpoints = DEFAULT_BREAKPOINT } = {}) {
   })
 
   function _subscribeToMediaQuery(mediaQuery, enter) {
-    const mql = window.matchMedia(mediaQuery)
-    const cb = ({ matches }) => {
-      if (matches) enter()
+    if (widnow) {
+      const mql = window.matchMedia(mediaQuery)
+      const cb = ({ matches }) => {
+        if (matches) enter()
+      }
+      mql.addListener(cb) //subscribing
+      cb(mql) //initial trigger
     }
-    mql.addListener(cb) //subscribing
-    cb(mql) //initial trigger
   }
 
   Vue.filter('mq', (currentBreakpoint, values) => {
