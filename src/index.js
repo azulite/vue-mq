@@ -23,7 +23,7 @@ const install = function (Vue, { breakpoints = DEFAULT_BREAKPOINT } = {}) {
   })
 
   function _subscribeToMediaQuery(mediaQuery, enter) {
-    if (widnow) {
+    if (typeof window !== 'undefined') {
       const mql = window.matchMedia(mediaQuery)
       const cb = ({ matches }) => {
         if (matches) enter()
