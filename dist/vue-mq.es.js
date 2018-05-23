@@ -158,31 +158,25 @@ var install = function install(Vue) {
       // if (reactorComponent.currentBreakpoint) {
       //   mqdata = reactorComponent.currentBreakpoint
       // }
-      var curBreakpoint = ssrBreakpoint;
-
-      if (reactorComponent.currentBreakpoint) {
-        curBreakpoint = reactorComponent.currentBreakpoint;
-      }
-
+      // let curBreakpoint = ssrBreakpoint
+      // if (reactorComponent.currentBreakpoint) {
+      //   curBreakpoint = reactorComponent.currentBreakpoint
+      // }
       return {
-        mqData: curBreakpoint
+        mqData: ssrBreakpoint
       };
     },
-    watch: {
-      mqData: function mqData(val) {
-        // this.mpData = this.$mq
-        var mediaQueries = convertBreakpointsToMediaQueries(breakpoints);
-        Object.keys(mediaQueries).map(function (key) {
-          var mediaQuery = mediaQueries[key];
-
-          var enter = function enter() {
-            reactorComponent.currentBreakpoint = key;
-          };
-
-          _subscribeToMediaQuery(mediaQuery, enter);
-        });
-      }
-    },
+    // watch: {
+    //   mqData: (val) => {
+    //     // this.mpData = this.$mq
+    //     const mediaQueries = convertBreakpointsToMediaQueries(breakpoints)
+    //     Object.keys(mediaQueries).map((key) => {
+    //       const mediaQuery = mediaQueries[key]
+    //       const enter = () => { reactorComponent.currentBreakpoint = key }
+    //       _subscribeToMediaQuery(mediaQuery, enter)
+    //     })
+    //   }
+    // },
     // mounted () {
     //   Vue.set(this, 'mqData', this.$mq)
     // },

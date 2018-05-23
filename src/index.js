@@ -50,25 +50,25 @@ const install = function (Vue,
       // if (reactorComponent.currentBreakpoint) {
       //   mqdata = reactorComponent.currentBreakpoint
       // }
-      let curBreakpoint = ssrBreakpoint
-      if (reactorComponent.currentBreakpoint) {
-        curBreakpoint = reactorComponent.currentBreakpoint
-      }
+      // let curBreakpoint = ssrBreakpoint
+      // if (reactorComponent.currentBreakpoint) {
+      //   curBreakpoint = reactorComponent.currentBreakpoint
+      // }
       return {
-        mqData: curBreakpoint
+        mqData: ssrBreakpoint
       }
     },
-    watch: {
-      mqData: (val) => {
-        // this.mpData = this.$mq
-        const mediaQueries = convertBreakpointsToMediaQueries(breakpoints)
-        Object.keys(mediaQueries).map((key) => {
-          const mediaQuery = mediaQueries[key]
-          const enter = () => { reactorComponent.currentBreakpoint = key }
-          _subscribeToMediaQuery(mediaQuery, enter)
-        })
-      }
-    },
+    // watch: {
+    //   mqData: (val) => {
+    //     // this.mpData = this.$mq
+    //     const mediaQueries = convertBreakpointsToMediaQueries(breakpoints)
+    //     Object.keys(mediaQueries).map((key) => {
+    //       const mediaQuery = mediaQueries[key]
+    //       const enter = () => { reactorComponent.currentBreakpoint = key }
+    //       _subscribeToMediaQuery(mediaQuery, enter)
+    //     })
+    //   }
+    // },
     // mounted () {
     //   Vue.set(this, 'mqData', this.$mq)
     // },
