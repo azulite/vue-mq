@@ -19,7 +19,7 @@ const install = function (Vue,
   const reactorComponent = new Vue({
     data: () => ({
       currentBreakpoint: null,
-      lifecycleCheck: 'created',
+      // lifecycleCheck: 'created',
     }),
   })
 
@@ -47,21 +47,21 @@ const install = function (Vue,
   Vue.mixin({
     data: () => {
       return {
-        _lifecycleCheck: 'created',
+        // _lifecycleCheck: 'created',
         mqData: ssrBreakpoint
       }
     },
-    mounted () {
-      this._lifecycleCheck = 'mounted'
-    },
+    // mounted () {
+    //   this._lifecycleCheck = 'mounted'
+    // },
     computed: {
       $mq() {
-        console.log('in $mq... ', this._lifecycleCheck)
-        if (this._lifecycleCheck === 'mounted') {
-          if (reactorComponent.currentBreakpoint) {
-            return reactorComponent.currentBreakpoint
-          }
+        // console.log('in $mq... ', this._lifecycleCheck)
+        // if (this._lifecycleCheck === 'mounted') {
+        if (reactorComponent.currentBreakpoint) {
+          return reactorComponent.currentBreakpoint
         }
+        // }
         return ssrBreakpoint
       },
     }

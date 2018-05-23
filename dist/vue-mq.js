@@ -182,8 +182,8 @@
     var reactorComponent = new Vue({
       data: function data() {
         return {
-          currentBreakpoint: null,
-          lifecycleCheck: 'created'
+          currentBreakpoint: null // lifecycleCheck: 'created',
+
         };
       }
     });
@@ -219,22 +219,21 @@
     Vue.mixin({
       data: function data() {
         return {
-          _lifecycleCheck: 'created',
+          // _lifecycleCheck: 'created',
           mqData: ssrBreakpoint
         };
       },
-      mounted: function mounted() {
-        this._lifecycleCheck = 'mounted';
-      },
+      // mounted () {
+      //   this._lifecycleCheck = 'mounted'
+      // },
       computed: {
         $mq: function $mq() {
-          console.log('in $mq... ', this._lifecycleCheck);
+          // console.log('in $mq... ', this._lifecycleCheck)
+          // if (this._lifecycleCheck === 'mounted') {
+          if (reactorComponent.currentBreakpoint) {
+            return reactorComponent.currentBreakpoint;
+          } // }
 
-          if (this._lifecycleCheck === 'mounted') {
-            if (reactorComponent.currentBreakpoint) {
-              return reactorComponent.currentBreakpoint;
-            }
-          }
 
           return ssrBreakpoint;
         }
