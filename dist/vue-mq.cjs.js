@@ -109,13 +109,13 @@ var DEFAULT_BREAKPOINT = {
   md: 1250,
   lg: Infinity
 };
+var DEFAULT_SSR_BREAKPOINT = 'sm';
 
 var install = function install(Vue) {
-  var _this = this;
-
   var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
       _ref$breakpoints = _ref.breakpoints,
-      breakpoints = _ref$breakpoints === void 0 ? DEFAULT_BREAKPOINT : _ref$breakpoints;
+      breakpoints = _ref$breakpoints === void 0 ? DEFAULT_BREAKPOINT : _ref$breakpoints,
+      _ref$ssrBreakpoint = _ref.ssrBreakpoint;
 
   // Init reactive component
   var reactorComponent = new Vue({
@@ -156,15 +156,17 @@ var install = function install(Vue) {
   });
   Vue.mixin({
     data: function data() {
-      var mqDefault = 'mobile'; // let mqdata = mqDefault
+      // const mqDefault = DEFAULT_SSR_BREAKPOINT
+      // let mqdata = mqDefault
       // if (reactorComponent.currentBreakpoint) {
       //   mqdata = reactorComponent.currentBreakpoint
       // }
-
       return {
-        mqDefault: mqDefault,
-        mqData: _this.$mq
+        mqData: DEFAULT_SSR_BREAKPOINT
       };
+    },
+    mounted: function mounted() {
+      Vue.set(this, 'mqData', this.$mq);
     },
     computed: {
       $mq: function $mq() {
@@ -173,7 +175,7 @@ var install = function install(Vue) {
         } // return this.mqDefault // this will be undefined during created lifecycle
 
 
-        return 'mobile';
+        return DEFAULT_SSR_BREAKPOINT;
       }
     }
   });

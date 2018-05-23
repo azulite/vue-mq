@@ -7,7 +7,14 @@ const DEFAULT_BREAKPOINT = {
   lg: Infinity,
 }
 
-const install = function (Vue, { breakpoints = DEFAULT_BREAKPOINT } = {}) {
+const DEFAULT_SSR_BREAKPOINT = 'sm'
+
+const install = function (Vue,
+  {
+    breakpoints = DEFAULT_BREAKPOINT,
+    ssrBreakpoint = DEFAULT_SSR_BREAKPOINT,
+  } = {}
+) {
   // Init reactive component
   const reactorComponent = new Vue({
     data: () => ({
@@ -38,15 +45,17 @@ const install = function (Vue, { breakpoints = DEFAULT_BREAKPOINT } = {}) {
   })
   Vue.mixin({
     data: () => {
-      const mqDefault = 'mobile'
+      // const mqDefault = DEFAULT_SSR_BREAKPOINT
       // let mqdata = mqDefault
       // if (reactorComponent.currentBreakpoint) {
       //   mqdata = reactorComponent.currentBreakpoint
       // }
       return {
-        mqDefault: mqDefault,
-        mqData: this.$mq
+        mqData: DEFAULT_SSR_BREAKPOINT
       }
+    },
+    mounted () {
+      Vue.set(this, 'mqData', this.$mq)
     },
     computed: {
       $mq() {
@@ -54,7 +63,7 @@ const install = function (Vue, { breakpoints = DEFAULT_BREAKPOINT } = {}) {
           return reactorComponent.currentBreakpoint
         }
         // return this.mqDefault // this will be undefined during created lifecycle
-        return 'mobile'
+        return DEFAULT_SSR_BREAKPOINT
       },
     }
   })
