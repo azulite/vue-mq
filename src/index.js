@@ -39,13 +39,13 @@ const install = function (Vue, { breakpoints = DEFAULT_BREAKPOINT } = {}) {
   Vue.mixin({
     data: () => {
       const mqDefault = 'mobile'
-      let mqdata = mqDefault
-      if (reactorComponent.currentBreakpoint) {
-        mqdata = reactorComponent.currentBreakpoint
-      }
+      // let mqdata = mqDefault
+      // if (reactorComponent.currentBreakpoint) {
+      //   mqdata = reactorComponent.currentBreakpoint
+      // }
       return {
         mqDefault: mqDefault,
-        mqData: mqdata
+        mqData: this.$mq
       }
     },
     computed: {

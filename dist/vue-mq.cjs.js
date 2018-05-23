@@ -111,6 +111,8 @@ var DEFAULT_BREAKPOINT = {
 };
 
 var install = function install(Vue) {
+  var _this = this;
+
   var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
       _ref$breakpoints = _ref.breakpoints,
       breakpoints = _ref$breakpoints === void 0 ? DEFAULT_BREAKPOINT : _ref$breakpoints;
@@ -154,16 +156,14 @@ var install = function install(Vue) {
   });
   Vue.mixin({
     data: function data() {
-      var mqDefault = 'mobile';
-      var mqdata = mqDefault;
-
-      if (reactorComponent.currentBreakpoint) {
-        mqdata = reactorComponent.currentBreakpoint;
-      }
+      var mqDefault = 'mobile'; // let mqdata = mqDefault
+      // if (reactorComponent.currentBreakpoint) {
+      //   mqdata = reactorComponent.currentBreakpoint
+      // }
 
       return {
         mqDefault: mqDefault,
-        mqData: mqdata
+        mqData: _this.$mq
       };
     },
     computed: {
