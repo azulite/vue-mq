@@ -154,8 +154,16 @@ var install = function install(Vue) {
   });
   Vue.mixin({
     data: function data() {
+      var mqDefault = 'mobile';
+      var mqdata = mqDefault;
+
+      if (reactorComponent.currentBreakpoint) {
+        mqdata = reactorComponent.currentBreakpoint;
+      }
+
       return {
-        mqdata: 'mobiledata'
+        mqDefault: mqDefault,
+        mqData: mqdata
       };
     },
     computed: {
@@ -164,7 +172,7 @@ var install = function install(Vue) {
           return reactorComponent.currentBreakpoint;
         }
 
-        return this.mqdata;
+        return this.mqDefault;
       }
     }
   });
