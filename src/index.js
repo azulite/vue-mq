@@ -58,6 +58,17 @@ const install = function (Vue,
         mqData: curBreakpoint
       }
     },
+    watch: {
+      mqData: (val) => {
+        // this.mpData = this.$mq
+        const mediaQueries = convertBreakpointsToMediaQueries(breakpoints)
+        Object.keys(mediaQueries).map((key) => {
+          const mediaQuery = mediaQueries[key]
+          const enter = () => { reactorComponent.currentBreakpoint = key }
+          _subscribeToMediaQuery(mediaQuery, enter)
+        })
+      }
+    },
     // mounted () {
     //   Vue.set(this, 'mqData', this.$mq)
     // },

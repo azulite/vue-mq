@@ -232,6 +232,21 @@
           mqData: curBreakpoint
         };
       },
+      watch: {
+        mqData: function mqData(val) {
+          // this.mpData = this.$mq
+          var mediaQueries = convertBreakpointsToMediaQueries(breakpoints);
+          Object.keys(mediaQueries).map(function (key) {
+            var mediaQuery = mediaQueries[key];
+
+            var enter = function enter() {
+              reactorComponent.currentBreakpoint = key;
+            };
+
+            _subscribeToMediaQuery(mediaQuery, enter);
+          });
+        }
+      },
       // mounted () {
       //   Vue.set(this, 'mqData', this.$mq)
       // },
