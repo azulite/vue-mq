@@ -47,5 +47,7 @@ test('should react to mediaQueries correctly', (t) => {
   const component = new Vue()
   t.equal(component.$mq, 'sm')
   triggerQueryChange('(min-width: 350px) and (max-width: 899px)', true)
-  t.equal(component.$mq, 'md')
+  t.equal(component.$mq, 'sm') // before mount
 })
+
+// TODO: test case for after mount

@@ -182,7 +182,8 @@
     var reactorComponent = new Vue({
       data: function data() {
         return {
-          currentBreakpoint: null
+          currentBreakpoint: null,
+          lifecycleCheck: 'created'
         };
       }
     });
@@ -217,37 +218,20 @@
     });
     Vue.mixin({
       data: function data() {
-        // const mqDefault = DEFAULT_SSR_BREAKPOINT
-        // let mqdata = mqDefault
-        // if (reactorComponent.currentBreakpoint) {
-        //   mqdata = reactorComponent.currentBreakpoint
-        // }
-        // let curBreakpoint = ssrBreakpoint
-        // if (reactorComponent.currentBreakpoint) {
-        //   curBreakpoint = reactorComponent.currentBreakpoint
-        // }
         return {
+          _lifecycleCheck: 'created',
           mqData: ssrBreakpoint
         };
       },
-      // watch: {
-      //   mqData: (val) => {
-      //     // this.mpData = this.$mq
-      //     const mediaQueries = convertBreakpointsToMediaQueries(breakpoints)
-      //     Object.keys(mediaQueries).map((key) => {
-      //       const mediaQuery = mediaQueries[key]
-      //       const enter = () => { reactorComponent.currentBreakpoint = key }
-      //       _subscribeToMediaQuery(mediaQuery, enter)
-      //     })
-      //   }
-      // },
-      // mounted () {
-      //   Vue.set(this, 'mqData', this.$mq)
-      // },
+      mounted: function mounted() {
+        this._lifecycleCheck = 'mounted';
+      },
       computed: {
         $mq: function $mq() {
-          if (reactorComponent.currentBreakpoint) {
-            return reactorComponent.currentBreakpoint;
+          if (reactorComponent._lifecycleCheck === 'mounted') {
+            if (reactorComponent.currentBreakpoint) {
+              return reactorComponent.currentBreakpoint;
+            }
           } // return this.mqDefault // this will be undefined during created lifecycle
 
 
