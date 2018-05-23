@@ -175,7 +175,8 @@
     var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
         _ref$breakpoints = _ref.breakpoints,
         breakpoints = _ref$breakpoints === void 0 ? DEFAULT_BREAKPOINT : _ref$breakpoints,
-        _ref$ssrBreakpoint = _ref.ssrBreakpoint;
+        _ref$ssrBreakpoint = _ref.ssrBreakpoint,
+        ssrBreakpoint = _ref$ssrBreakpoint === void 0 ? DEFAULT_SSR_BREAKPOINT : _ref$ssrBreakpoint;
 
     // Init reactive component
     var reactorComponent = new Vue({
@@ -222,7 +223,7 @@
         //   mqdata = reactorComponent.currentBreakpoint
         // }
         return {
-          mqData: DEFAULT_SSR_BREAKPOINT
+          mqData: ssrBreakpoint
         };
       },
       mounted: function mounted() {
@@ -235,7 +236,7 @@
           } // return this.mqDefault // this will be undefined during created lifecycle
 
 
-          return DEFAULT_SSR_BREAKPOINT;
+          return ssrBreakpoint;
         }
       }
     });

@@ -51,7 +51,7 @@ const install = function (Vue,
       //   mqdata = reactorComponent.currentBreakpoint
       // }
       return {
-        mqData: DEFAULT_SSR_BREAKPOINT
+        mqData: ssrBreakpoint
       }
     },
     mounted () {
@@ -63,7 +63,7 @@ const install = function (Vue,
           return reactorComponent.currentBreakpoint
         }
         // return this.mqDefault // this will be undefined during created lifecycle
-        return DEFAULT_SSR_BREAKPOINT
+        return ssrBreakpoint
       },
     }
   })
