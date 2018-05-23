@@ -54,9 +54,9 @@ const install = function (Vue,
         mqData: ssrBreakpoint
       }
     },
-    mounted () {
-      Vue.set(this, 'mqData', this.$mq)
-    },
+    // mounted () {
+    //   Vue.set(this, 'mqData', this.$mq)
+    // },
     computed: {
       $mq() {
         if (reactorComponent.currentBreakpoint) {
@@ -72,3 +72,4 @@ const install = function (Vue,
 }
 
 export default { install }
+

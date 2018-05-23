@@ -162,9 +162,9 @@ var install = function install(Vue) {
         mqData: ssrBreakpoint
       };
     },
-    mounted: function mounted() {
-      Vue.set(this, 'mqData', this.$mq);
-    },
+    // mounted () {
+    //   Vue.set(this, 'mqData', this.$mq)
+    // },
     computed: {
       $mq: function $mq() {
         if (reactorComponent.currentBreakpoint) {
