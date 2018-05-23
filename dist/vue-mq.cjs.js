@@ -153,9 +153,18 @@ var install = function install(Vue) {
     return transformValuesFromBreakpoints(Object.keys(breakpoints), values, currentBreakpoint);
   });
   Vue.mixin({
+    data: function data() {
+      return {
+        mqdata: 'mobiledata'
+      };
+    },
     computed: {
       $mq: function $mq() {
-        return reactorComponent.currentBreakpoint;
+        if (reactorComponent.currentBreakpoint) {
+          return reactorComponent.currentBreakpoint;
+        }
+
+        return this.mqdata;
       }
     }
   });

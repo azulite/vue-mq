@@ -37,9 +37,17 @@ const install = function (Vue, { breakpoints = DEFAULT_BREAKPOINT } = {}) {
     return transformValuesFromBreakpoints(Object.keys(breakpoints), values, currentBreakpoint)
   })
   Vue.mixin({
+    data: () => {
+      return {
+        mqdata: 'mobiledata'
+      }
+    },
     computed: {
       $mq() {
-        return reactorComponent.currentBreakpoint
+        if (reactorComponent.currentBreakpoint) {
+          return reactorComponent.currentBreakpoint
+        }
+        return this.mqdata
       },
     }
   })
