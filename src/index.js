@@ -53,7 +53,8 @@ const install = function (Vue, { breakpoints = DEFAULT_BREAKPOINT } = {}) {
         if (reactorComponent.currentBreakpoint) {
           return reactorComponent.currentBreakpoint
         }
-        return this.mqDefault
+        // return this.mqDefault // this will be undefined during created lifecycle
+        return 'mobile'
       },
     }
   })

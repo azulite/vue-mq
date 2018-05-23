@@ -230,9 +230,10 @@
         $mq: function $mq() {
           if (reactorComponent.currentBreakpoint) {
             return reactorComponent.currentBreakpoint;
-          }
+          } // return this.mqDefault // this will be undefined during created lifecycle
 
-          return this.mqDefault;
+
+          return 'mobile';
         }
       }
     });
