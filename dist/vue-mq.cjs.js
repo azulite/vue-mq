@@ -168,12 +168,13 @@ var install = function install(Vue) {
     },
     computed: {
       $mq: function $mq() {
-        if (reactorComponent._lifecycleCheck === 'mounted') {
+        console.log('in $mq... ', this._lifecycleCheck);
+
+        if (this._lifecycleCheck === 'mounted') {
           if (reactorComponent.currentBreakpoint) {
             return reactorComponent.currentBreakpoint;
           }
-        } // return this.mqDefault // this will be undefined during created lifecycle
-
+        }
 
         return ssrBreakpoint;
       }
