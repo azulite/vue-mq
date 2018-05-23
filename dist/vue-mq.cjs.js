@@ -162,8 +162,14 @@ var install = function install(Vue) {
       // if (reactorComponent.currentBreakpoint) {
       //   mqdata = reactorComponent.currentBreakpoint
       // }
+      var curBreakpoint = ssrBreakpoint;
+
+      if (reactorComponent.currentBreakpoint) {
+        curBreakpoint = reactorComponent.currentBreakpoint;
+      }
+
       return {
-        mqData: ssrBreakpoint
+        mqData: curBreakpoint
       };
     },
     // mounted () {

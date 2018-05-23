@@ -50,8 +50,12 @@ const install = function (Vue,
       // if (reactorComponent.currentBreakpoint) {
       //   mqdata = reactorComponent.currentBreakpoint
       // }
+      let curBreakpoint = ssrBreakpoint
+      if (reactorComponent.currentBreakpoint) {
+        curBreakpoint = reactorComponent.currentBreakpoint
+      }
       return {
-        mqData: ssrBreakpoint
+        mqData: curBreakpoint
       }
     },
     // mounted () {
