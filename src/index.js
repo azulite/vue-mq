@@ -47,24 +47,24 @@ const install = function (Vue,
   Vue.mixin({
     data: () => {
       return {
-        lifecycleCheck: 'created',
+        _lifecycleCheck: 'created',
         mqData: ssrBreakpoint
       }
     },
     computed: {
       $mq() {
         // console.log('in $mq... ', this._lifecycleCheck)
-        // if (this._lifecycleCheck === 'mounted') {
-        if (reactorComponent.currentBreakpoint) {
-          return reactorComponent.currentBreakpoint
+        if (this._lifecycleCheck === 'mounted') {
+          if (reactorComponent.currentBreakpoint) {
+            return reactorComponent.currentBreakpoint
+          }
         }
-        // }
         return ssrBreakpoint
       },
     },
     mounted () {
-      console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck)
-      this.lifecycleCheck = 'mounted'
+      console.log('in vue mq mounted... ', this.mqData, this._lifecycleCheck)
+      this._lifecycleCheck = 'mounted'
     },
   })
   Vue.prototype.$mqAvailableBreakpoints = breakpoints
