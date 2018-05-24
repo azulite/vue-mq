@@ -174,7 +174,7 @@ var install = function install(Vue) {
     },
     // mounted: _throttle(() => {
     // }, 100),
-    beforeMount: function beforeMount() {
+    mounted: function mounted() {
       // console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck)
       this.lifecycleCheck = 'mounted';
     }
