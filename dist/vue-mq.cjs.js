@@ -3,7 +3,7 @@
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var json2mq = _interopDefault(require('json2mq'));
-var _throttle = _interopDefault(require('lodash/throttle'));
+require('lodash/throttle');
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -113,8 +113,6 @@ var DEFAULT_BREAKPOINT = {
 var DEFAULT_SSR_BREAKPOINT = 'sm';
 
 var install = function install(Vue) {
-  var _this = this;
-
   var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
       _ref$breakpoints = _ref.breakpoints,
       breakpoints = _ref$breakpoints === void 0 ? DEFAULT_BREAKPOINT : _ref$breakpoints,
@@ -178,10 +176,12 @@ var install = function install(Vue) {
         return ssrBreakpoint;
       }
     },
-    mounted: _throttle(function () {
-      console.log('in vue mq mounted... ', _this.mqData, _this.lifecycleCheck);
-      _this.lifecycleCheck = 'mounted';
-    }, 100)
+    // mounted: _throttle(() => {
+    // }, 100),
+    mounted: function mounted() {
+      console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck);
+      this.lifecycleCheck = 'mounted';
+    }
   });
   Vue.prototype.$mqAvailableBreakpoints = breakpoints;
   Vue.component('MqLayout', component);
