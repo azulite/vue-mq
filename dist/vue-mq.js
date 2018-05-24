@@ -219,14 +219,14 @@
     Vue.mixin({
       data: function data() {
         return {
-          _lifecycleCheck: 'created',
+          lifecycleCheck: 'created',
           mqData: ssrBreakpoint
         };
       },
       computed: {
         $mq: function $mq() {
           // console.log('in $mq... ', this._lifecycleCheck)
-          if (this._lifecycleCheck === 'mounted') {
+          if (this.lifecycleCheck === 'mounted') {
             if (reactorComponent.currentBreakpoint) {
               return reactorComponent.currentBreakpoint;
             }
@@ -236,8 +236,8 @@
         }
       },
       mounted: function mounted() {
-        console.log('in vue mq mounted... ', this.mqData, this._lifecycleCheck);
-        this._lifecycleCheck = 'mounted';
+        console.log('in vue mq mounted... ', this.mqData, this.$data.lifecycleCheck);
+        this.lifecycleCheck = 'mounted';
       }
     });
     Vue.prototype.$mqAvailableBreakpoints = breakpoints;
