@@ -47,13 +47,10 @@ const install = function (Vue,
   Vue.mixin({
     data: () => {
       return {
-        // _lifecycleCheck: 'created',
+        lifecycleCheck: 'created',
         mqData: ssrBreakpoint
       }
     },
-    // mounted () {
-    //   this._lifecycleCheck = 'mounted'
-    // },
     computed: {
       $mq() {
         // console.log('in $mq... ', this._lifecycleCheck)
@@ -64,7 +61,11 @@ const install = function (Vue,
         // }
         return ssrBreakpoint
       },
-    }
+    },
+    mounted () {
+      console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck)
+      this.lifecycleCheck = 'mounted'
+    },
   })
   Vue.prototype.$mqAvailableBreakpoints = breakpoints
   Vue.component('MqLayout', MqLayout)

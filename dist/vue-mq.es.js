@@ -155,13 +155,10 @@ var install = function install(Vue) {
   Vue.mixin({
     data: function data() {
       return {
-        // _lifecycleCheck: 'created',
+        lifecycleCheck: 'created',
         mqData: ssrBreakpoint
       };
     },
-    // mounted () {
-    //   this._lifecycleCheck = 'mounted'
-    // },
     computed: {
       $mq: function $mq() {
         // console.log('in $mq... ', this._lifecycleCheck)
@@ -173,6 +170,10 @@ var install = function install(Vue) {
 
         return ssrBreakpoint;
       }
+    },
+    mounted: function mounted() {
+      console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck);
+      this.lifecycleCheck = 'mounted';
     }
   });
   Vue.prototype.$mqAvailableBreakpoints = breakpoints;
