@@ -714,6 +714,8 @@
   var DEFAULT_SSR_BREAKPOINT = 'sm';
 
   var install = function install(Vue) {
+    var _this = this;
+
     var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
         _ref$breakpoints = _ref.breakpoints,
         breakpoints = _ref$breakpoints === void 0 ? DEFAULT_BREAKPOINT : _ref$breakpoints,
@@ -777,11 +779,10 @@
           return ssrBreakpoint;
         }
       },
-      mounted: function mounted() {
-        throttle_1(console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck), 100);
-
-        throttle_1(this.lifecycleCheck = 'mounted', 100);
-      }
+      mounted: throttle_1(function () {
+        console.log('in vue mq mounted... ', _this.mqData, _this.lifecycleCheck);
+        _this.lifecycleCheck = 'mounted';
+      }, 100)
     });
     Vue.prototype.$mqAvailableBreakpoints = breakpoints;
     Vue.component('MqLayout', component);

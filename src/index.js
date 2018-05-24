@@ -64,10 +64,10 @@ const install = function (Vue,
         return ssrBreakpoint
       },
     },
-    mounted () {
-      _throttle(console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck), 100)
-      _throttle(this.lifecycleCheck = 'mounted', 100)
-    },
+    mounted: _throttle(() => {
+      console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck)
+      this.lifecycleCheck = 'mounted'
+    }, 100),
   })
   Vue.prototype.$mqAvailableBreakpoints = breakpoints
   Vue.component('MqLayout', MqLayout)
