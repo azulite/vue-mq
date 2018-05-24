@@ -304,7 +304,8 @@
       },
       computed: {
         $mq: function $mq() {
-          // console.log('in $mq... ', this._lifecycleCheck)
+          console.log('in $mq... ', this._isMounted);
+
           if (this._isMounted === true) {
             if (reactorComponent.currentBreakpoint) {
               return reactorComponent.currentBreakpoint;
