@@ -172,7 +172,7 @@ var install = function install(Vue) {
       }
     },
     mounted: function mounted() {
-      console.log('in vue mq mounted... ', this.mqData, this.$data.lifecycleCheck);
+      console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck);
       this.lifecycleCheck = 'mounted';
     }
   });
