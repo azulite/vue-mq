@@ -67,7 +67,7 @@ const install = function (Vue,
     // mounted: _throttle(() => {
     // }, 100),
     mounted () {
-      console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck)
+      // console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck)
       this.lifecycleCheck = 'mounted'
     }
   })
