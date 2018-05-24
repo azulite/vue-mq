@@ -3,6 +3,7 @@
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var json2mq = _interopDefault(require('json2mq'));
+var _throttle = _interopDefault(require('lodash/throttle'));
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -176,8 +177,9 @@ var install = function install(Vue) {
       }
     },
     mounted: function mounted() {
-      console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck);
-      this.lifecycleCheck = 'mounted';
+      _throttle(console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck), 100);
+
+      _throttle(this.lifecycleCheck = 'mounted', 100);
     }
   });
   Vue.prototype.$mqAvailableBreakpoints = breakpoints;

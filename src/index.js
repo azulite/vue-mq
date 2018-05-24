@@ -1,3 +1,5 @@
+import _throttle from 'lodash/throttle'
+
 import { convertBreakpointsToMediaQueries, transformValuesFromBreakpoints } from './helpers.js'
 import MqLayout from './component.js'
 
@@ -63,8 +65,8 @@ const install = function (Vue,
       },
     },
     mounted () {
-      console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck)
-      this.lifecycleCheck = 'mounted'
+      _throttle(console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck), 100)
+      _throttle(this.lifecycleCheck = 'mounted', 100)
     },
   })
   Vue.prototype.$mqAvailableBreakpoints = breakpoints

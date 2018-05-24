@@ -1,4 +1,5 @@
 import json2mq from 'json2mq';
+import _throttle from 'lodash/throttle';
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -172,8 +173,9 @@ var install = function install(Vue) {
       }
     },
     mounted: function mounted() {
-      console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck);
-      this.lifecycleCheck = 'mounted';
+      _throttle(console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck), 100);
+
+      _throttle(this.lifecycleCheck = 'mounted', 100);
     }
   });
   Vue.prototype.$mqAvailableBreakpoints = breakpoints;
