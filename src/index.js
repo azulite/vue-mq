@@ -20,7 +20,7 @@ const install = function (Vue,
   // Init reactive component
   const reactorComponent = new Vue({
     data: () => ({
-      currentBreakpoint: null,
+      currentBreakpoint: ssrBreakpoint || null,
       // lifecycleCheck: 'created',
     }),
   })
