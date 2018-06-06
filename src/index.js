@@ -1,4 +1,4 @@
-import _throttle from 'lodash/throttle'
+// import _throttle from 'lodash/throttle'
 
 import { convertBreakpointsToMediaQueries, transformValuesFromBreakpoints } from './helpers.js'
 import MqLayout from './component.js'
@@ -20,17 +20,11 @@ const install = function (Vue,
   // Init reactive component
   const reactorComponent = new Vue({
     data: () => ({
-      currentBreakpoint: ssrBreakpoint || null,
-      // lifecycleCheck: 'created',
+      currentBreakpoint: ssrBreakpoint,
     }),
   })
 
   const mediaQueries = convertBreakpointsToMediaQueries(breakpoints)
-  Object.keys(mediaQueries).map((key) => {
-    const mediaQuery = mediaQueries[key]
-    const enter = () => { reactorComponent.currentBreakpoint = key }
-    _subscribeToMediaQuery(mediaQuery, enter)
-  })
 
   function _subscribeToMediaQuery(mediaQuery, enter) {
     if (typeof window !== 'undefined') {
@@ -47,29 +41,25 @@ const install = function (Vue,
     return transformValuesFromBreakpoints(Object.keys(breakpoints), values, currentBreakpoint)
   })
   Vue.mixin({
-    data: () => {
-      return {
-        lifecycleCheck: 'created',
-        mqData: ssrBreakpoint
-      }
-    },
     computed: {
       $mq() {
-        // console.log('in $mq... ', this._isMounted)
-        // if (this.lifecycleCheck === 'mounted') {
-          if (reactorComponent.currentBreakpoint) {
-            return reactorComponent.currentBreakpoint
-          }
-        // }
-        return ssrBreakpoint
+        return reactorComponent.currentBreakpoint
       },
     },
-    // mounted: _throttle(() => {
-    // }, 100),
-    // mounted () {
-    //   // console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck)
-    //   this.lifecycleCheck = 'mounted'
-    // }
+    mounted () {
+      Object.keys(mediaQueries).map((key) => {
+        const mediaQuery = mediaQueries[key]
+        const enter = () => { reactorComponent.currentBreakpoint = key }
+        if (typeof window !== 'undefined') {
+          const mql = window.matchMedia(mediaQuery)
+          const cb = ({ matches }) => {
+            if (matches) enter()
+          }
+          mql.addListener(cb) //subscribing
+          cb(mql) //initial trigger
+        }
+      })
+    },
   })
   Vue.prototype.$mqAvailableBreakpoints = breakpoints
   Vue.component('MqLayout', MqLayout)

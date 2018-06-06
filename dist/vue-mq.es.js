@@ -1,5 +1,4 @@
 import json2mq from 'json2mq';
-import 'lodash/throttle';
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -17,23 +16,13 @@ function _defineProperty(obj, key, value) {
 }
 
 function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
-}
-
-function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) {
     for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
 
     return arr2;
+  } else {
+    return Array.from(arr);
   }
-}
-
-function _iterableToArray(iter) {
-  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
-}
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance");
 }
 
 function convertBreakpointsToMediaQueries(breakpoints) {
@@ -78,6 +67,8 @@ function isArray(arg) {
 }
 
 // USAGE
+// mq-layout(mq="lg")
+//   p I’m lg
 var component = {
   props: {
     mq: {
@@ -101,6 +92,7 @@ var component = {
   }
 };
 
+// import _throttle from 'lodash/throttle'
 var DEFAULT_BREAKPOINT = {
   sm: 450,
   md: 1250,
@@ -119,64 +111,42 @@ var install = function install(Vue) {
   var reactorComponent = new Vue({
     data: function data() {
       return {
-        currentBreakpoint: null // lifecycleCheck: 'created',
-
+        currentBreakpoint: ssrBreakpoint
       };
     }
   });
   var mediaQueries = convertBreakpointsToMediaQueries(breakpoints);
-  Object.keys(mediaQueries).map(function (key) {
-    var mediaQuery = mediaQueries[key];
-
-    var enter = function enter() {
-      reactorComponent.currentBreakpoint = key;
-    };
-
-    _subscribeToMediaQuery(mediaQuery, enter);
-  });
-
-  function _subscribeToMediaQuery(mediaQuery, enter) {
-    if (typeof window !== 'undefined') {
-      var mql = window.matchMedia(mediaQuery);
-
-      var cb = function cb(_ref2) {
-        var matches = _ref2.matches;
-        if (matches) enter();
-      };
-
-      mql.addListener(cb); //subscribing
-
-      cb(mql); //initial trigger
-    }
-  }
 
   Vue.filter('mq', function (currentBreakpoint, values) {
     return transformValuesFromBreakpoints(Object.keys(breakpoints), values, currentBreakpoint);
   });
   Vue.mixin({
-    data: function data() {
-      return {
-        lifecycleCheck: 'created',
-        mqData: ssrBreakpoint
-      };
-    },
     computed: {
       $mq: function $mq() {
-        // console.log('in $mq... ', this._isMounted)
-        if (this.lifecycleCheck === 'mounted') {
-          if (reactorComponent.currentBreakpoint) {
-            return reactorComponent.currentBreakpoint;
-          }
-        }
-
-        return ssrBreakpoint;
+        return reactorComponent.currentBreakpoint;
       }
     },
-    // mounted: _throttle(() => {
-    // }, 100),
     mounted: function mounted() {
-      // console.log('in vue mq mounted... ', this.mqData, this.lifecycleCheck)
-      this.lifecycleCheck = 'mounted';
+      Object.keys(mediaQueries).map(function (key) {
+        var mediaQuery = mediaQueries[key];
+
+        var enter = function enter() {
+          reactorComponent.currentBreakpoint = key;
+        };
+
+        if (typeof window !== 'undefined') {
+          var mql = window.matchMedia(mediaQuery);
+
+          var cb = function cb(_ref3) {
+            var matches = _ref3.matches;
+            if (matches) enter();
+          };
+
+          mql.addListener(cb); //subscribing
+
+          cb(mql); //initial trigger
+        }
+      });
     }
   });
   Vue.prototype.$mqAvailableBreakpoints = breakpoints;
